@@ -4,7 +4,6 @@
   margin: 0;
   padding: 0;
   box-sizing: inherit;}
-  /* font-family: inherit; } */
 
 html {
   font-size: 62.5%;
@@ -384,4 +383,114 @@ li {
     width: 100%;
     max-width: 500px;
     display: flex;
+  }
+
+.contact {
+    color: #fff;
+    background: linear-gradient(to right, rgba(70, 21, 126, 0.8), rgba(143, 108, 186, 0.864)), url(../assets/svg/common-bg.svg);
+}
+  .contact-text{
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 4rem;  
+    font-size: large;
+  }
+  .form-container {
+    position: relative;
+    width: 70%;
+    padding: 6%;
+    background: white;
+    color:rgb(13, 13, 13);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 5rem auto 0 auto; 
+  }
+  .form-container{
+    text-align: center;
+  }
+    .contact-form-label{
+      color: #666;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: block;
+      text-align: left;
+    }
+
+    .contact-form-input{
+      color: #333;
+      padding: 2rem;
+      width: 100%;
+      border: 1px solid #ebebeb;
+      font-size: 1.6rem;
+      letter-spacing: 0px;
+      background: #f0f0f0;
+      border-radius: 5px;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+ 
+    .contact-form-input::placeholder {
+      font-family: 'Space Grotesk', sans-serif; 
+      color: #999;
+      font-weight: 600;
+      font-size: 1.6rem; }
+
+.footer {
+  background-color: rgb(47, 47, 47);
+  color: white;
+  padding: 1rem;
+  font-size: 1rem; 
+  text-align: center;
+  border: 1px;
+  border-color: white;
+}
+
+.footer-container{
+  font-size: 1.2rem;
+}
+  .footer-info{
+    display: flex;
+    justify-content: space-between  ;
+    padding: 1.5rem 0;
+  }
+
+    .footer-info-summary h2 {
+      font-size: 1.8rem;
+      padding-bottom: 10px;
+    }
+    .footer-info-summary p {
+      font-size: 1.4rem;
+    }
+    .footer-info-summary{
+      width: 70%;
+      text-align: left;
+    } 
+  .footer-social{
+    padding: 0 1rem 0 0;
+  }
+  .footer-social-header{
+    text-align: left;
+    padding-bottom: 0.1rem;
+    margin-left: 1px;
+    padding-bottom: 10px;
+  }
+  
+
+  .footer-social-cont img {
+    max-width: 30px;
+  }
+
+
+  .footer-copyright{
+    padding: 15px 0 0 0;
+    position: relative;
+    border-top-color: rgb(205, 200, 200);
+    border-top-width: 0.5px; 
+    border-top-style: solid;
+  }
+
+  .footer-link{
+    text-decoration: underline;
   }
