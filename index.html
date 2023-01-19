@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Ricardo Martinez</title>
 
-    <link rel="stylesheet" href="style.css" type="text/css"/>
+    <link rel="stylesheet" href="style.css" type="text/css" />
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,13 +28,10 @@
                 <div class="header__logo-img-cont">
                     <img src="./assets/jpeg/rmargar.jpeg" alt="Ram Maheshwari Logo Image" class="header__logo-img" />
                 </div>
-                <span class="header__logo-sub">Ricardo Martinez</span>
+                <a href="#home"><span class="header__logo-sub">Ricardo Martinez</span></a>
             </div>
             <div class="header__main">
                 <ul class="header__links">
-                    <li class="header__link-wrapper">
-                        <a href="#home" class="header__link"> Home </a>
-                    </li>
                     <li class="header__link-wrapper">
                         <a href="#about" class="header__link">About </a>
                     </li>
@@ -255,6 +252,65 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <section class="sec-pad contact" id="contact">
+        <div class="main-container">
+            <h2 class="heading-section">Contact</h2>
+            <div class="heading-icon"> <i class="material-icons">more_horiz</i></div>
+            <p class="contact-text">Let's get in touch! <br> Feel free to drop me a message and I will reply as soon as
+                I can.</p>
+            <div class="form-container">
+                <form class="contact-form" method="post">
+                    <div class="contact-form-field">
+                        <label class="contact-form-label" for="name">Name</label>
+                        <input required class="contact-form-input" id="post-name" placeholder="Enter your name"
+                            type="text" name="name">
+                    </div>
+                    <div class="contact-form-field">
+                        <label class="contact-form-label" for="email">Email</label>
+                        <input required class="contact-form-input" id="post-email" type="text"
+                            placeholder="Enter your email" name="email">
+                    </div>
+                    <div class="contact-form-field">
+                        <label class="contact-form-label" for="message">Message</label>
+                        <textarea required cols="30" rows="10" class="contact-form-input"
+                            placeholder="Enter Your Message" name="message" id="message"></textarea>
+                    </div>
+                    <input class="btn contact-form-submit-btn" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+
+    </section>
+    <section class="footer" id="footer">
+        <div class="main-container footer-container">
+            <div class="footer-info">
+                <div class="footer-info-summary">
+                    <h2>Ricardo Martinez Garcia</h2>
+                    <p class="">Software Engineer specialized in Backend development</h2>
+                </div>
+                <div class="footer-social">
+                    <h2 class="footer-social-header">Social</h2>
+                    <div class="footer-social-cont">
+                        <a href="https://www.linkedin.com/in/ricmargar/" target="_blank" rel="noreferrer" href="#">
+                            <img class="main-footer__icon" src="./assets/png/linkedin-ico.png" alt="icon" />
+                        </a>
+                        <a href="https://www.github.com/rmargar/" target="_blank" rel="noreferrer" href="#">
+                            <img class="main-footer__icon" src="./assets/png/github-ico.png" alt="icon" />
+                        </a>
+                        <a href="https://www.instagram.com/mrtnzzz__/" target="_blank" rel="noreferrer" href="#">
+                            <img class="main-footer__icon" src="./assets/png/insta-ico.png" alt="icon" />
+                        </a>
+                        <a href="https://www.instagram.com/mrtnzzz__/" target="_blank" rel="noreferrer" href="#">
+                            <img class="main-footer__icon" src="./assets/png/soundcloud.png" alt="icon" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-copyright">Copyright © 2023, <a class="footer-link" href="https://rmargar.net">Ricardo
+                    Martinez</a></div>
         </div>
     </section>
 </body>
