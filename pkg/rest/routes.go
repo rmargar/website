@@ -1,10 +1,9 @@
 package rest
 
 import (
-	"net/http"
-
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/rmargar/website/pkg/rest/controllers"
 )
 
 func NewRouter() *chi.Mux {
@@ -15,8 +14,7 @@ func NewRouter() *chi.Mux {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome"))
-	})
+	r.Get("/static/*", controllers.GetStaticFiles)
+	r.Get("/", controllers.GetIndexPage)
 	return r
 }
