@@ -1,5 +1,5 @@
 ---
-name: Deploy to server
+name: Deploy to CapRover
 
 on:
   push:
@@ -12,12 +12,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Deploy
-        id: vault-secrets
-        uses: appleboy/ssh-action@master
+        uses: AlexxNB/caprover-action@v1
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          script: |
-            cd /var/www/rmargar.net
-            git pull
+          server: 'https://captain.caprover.rmargar.net'
+          password: '${{ secrets.CAPROVER_PASSWORD }}'
+          appname: 'rmargar-website'
