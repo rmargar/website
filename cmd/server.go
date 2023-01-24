@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
+	"github.com/rmargar/website/pkg/config"
 	"github.com/rmargar/website/pkg/rest"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
-	port := "8000" // hardcoded for now
-	log.Println(fmt.Sprintf("server listening in port %s", port))
-	if err := http.ListenAndServe(":8000", rest.NewRouter()); err != nil {
+	cfg := config.GetConfig()
+	log.Info(fmt.Sprintf("Server listening in port %s", cfg.Port))
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", cfg.Port), rest.NewRouter(cfg)); err != nil {
 		fmt.Println("Http server error")
 	}
 }
