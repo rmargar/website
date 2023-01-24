@@ -1,0 +1,6 @@
+services:
+ server:
+   build: .
+   command: server
+   ports:
+     - 8000:8000
