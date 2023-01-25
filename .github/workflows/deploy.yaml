@@ -5,6 +5,7 @@ env:
     IMAGE_NAME: ${{ github.repository }}
     DOCKERFILE: Dockerfile
     CAPROVER_APP: rmargar-website
+    DOCKER_REGISTRY: hub.docker.com
 
 on:
     push:
