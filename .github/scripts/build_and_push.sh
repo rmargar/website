@@ -9,5 +9,6 @@ echo "--build-arg \""$(cat /tmp/build_args | sed -z 's/\n/" --build-arg "/g')"IG
 BUILD_ARGS=$(cat /tmp/build_args)
 COMMAND="docker build -t $FULL_IMAGE_NAME -t $IMAGE_NAME_WITH_REGISTRY:latest -f $DOCKERFILE $BUILD_ARGS --no-cache ."
 /bin/bash -c "$COMMAND"
+echo $IMAGE_NAME_WITH_REGISTRY
 docker push $IMAGE_NAME_WITH_REGISTRY:latest
 docker push $FULL_IMAGE_NAME
