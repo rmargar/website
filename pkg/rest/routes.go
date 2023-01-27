@@ -22,6 +22,6 @@ func NewRouter(cfg *config.Config) *chi.Mux {
 	r.Post("/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/static/", http.StatusPermanentRedirect)
 	})
-	r.Post("/static/", controllers.HandlePostForm(&cfg.SmtpConfig))
+	r.Post("/static/", controllers.HandlePostForm(&cfg.SmtpConfig, controllers.ParseForm))
 	return r
 }
