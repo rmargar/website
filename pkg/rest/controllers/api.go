@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/smtp"
 
 	"github.com/rmargar/website/pkg/email"
 	e "github.com/rmargar/website/pkg/email"
@@ -29,7 +30,7 @@ func HandlePostForm(cfg *email.SmtpConfig) http.HandlerFunc {
 		contactDetails := ContactForm{Name: name[0], Email: email[0], Message: message[0]}
 
 		defer r.Body.Close()
-		err := e.SendEmail(cfg, []string{"a", "b"}, message[0])
+		err := e.SendEmail(cfg, []string{"a", "b"}, message[0], smtp.SendMail)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			resp := make(map[string]int)

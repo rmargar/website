@@ -6,9 +6,13 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func SendEmail(cfg *SmtpConfig, to []string, message string) error {
+type (
+	emailSender func(string, smtp.Auth, string, []string, []byte) error
+)
+
+func SendEmail(cfg *SmtpConfig, to []string, message string, send emailSender) error {
 	// Send actual message
-	err := smtp.SendMail(cfg.GetAddress(), cfg.NewAuth(), cfg.Email, to, []byte(message))
+	err := send(cfg.GetAddress(), cfg.NewAuth(), cfg.Email, to, []byte(message))
 	if err != nil {
 		log.WithError(err).Error("Email couldn't be sent")
 	}
