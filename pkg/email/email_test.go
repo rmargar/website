@@ -13,7 +13,7 @@ func TestSendEmailReturnsError(t *testing.T) {
 	}
 	cfg := SmtpConfig{}
 	to := []string{"test@host.com"}
-	message := "testMsg"
+	message := []byte("testMsg")
 	err := SendEmail(&cfg, to, message, send)
 
 	if err != mockError {
@@ -27,7 +27,7 @@ func TestSendEmailSuccess(t *testing.T) {
 	}
 	cfg := SmtpConfig{}
 	to := []string{"test@host.com"}
-	message := "testMsg"
+	message := []byte("testMsg")
 	err := SendEmail(&cfg, to, message, send)
 
 	if err != nil {

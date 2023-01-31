@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/smtp"
 
@@ -23,16 +23,14 @@ func HandlePostForm(cfg *email.SmtpConfig, parseForm func(r *http.Request, w htt
 		if err != nil {
 			http.Error(w, "Invalid form", http.StatusBadRequest)
 		}
-		err = e.SendEmail(cfg, []string{"a", "b"}, contactDetails.Message, smtp.SendMail)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			resp := make(map[string]int)
-			resp["errorCode"] = http.StatusInternalServerError
-			jsonResp, _ := json.Marshal(resp)
-			w.Write(jsonResp)
-			return
-		}
-		json.NewDecoder(r.Body).Decode(&contactDetails)
+		to := []string{contactDetails.Email, cfg.Email}
+
+		message := []byte(
+			fmt.Sprintf("From: %s\r\n", cfg.Email) +
+				"Subject: Contact through rmargar.net\r\n\r\n" +
+				fmt.Sprintf("Email: %s \n Message: %s\r\n", contactDetails.Email, contactDetails.Message))
+
+		go e.SendEmail(cfg, to, message, smtp.SendMail)
 
 		http.ServeFile(w, r, "./static/submit.html")
 	}
