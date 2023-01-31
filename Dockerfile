@@ -8,6 +8,8 @@ RUN make build
 FROM ubuntu:20.04
 COPY --from=builder /app/bin/server /app/bin/server
 COPY --from=builder /app/static /app/static
+
+RUN apt-get update && apt-get install ca-certificates -y
 WORKDIR /app
 
 ENTRYPOINT [ "./bin/server" ]
