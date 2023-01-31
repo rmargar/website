@@ -4,12 +4,14 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	cleanenv "github.com/ilyakaznacheev/cleanenv"
+	"github.com/rmargar/website/pkg/database"
 	"github.com/rmargar/website/pkg/email"
 )
 
 type Config struct {
 	Port       string `env:"PORT" env-default:"8000"`
 	SmtpConfig email.SmtpConfig
+	Database   database.DatabaseConfig
 }
 
 func GetConfig() *Config {
