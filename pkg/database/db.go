@@ -1,7 +1,11 @@
 package database
 
 import (
+	"errors"
 	"fmt"
+
+	"github.com/golang-migrate/migrate"
+	pg "github.com/golang-migrate/migrate/database/postgres"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -15,4 +19,20 @@ func NewDB(cfg *DatabaseConfig) *gorm.DB {
 		panic("could not connect to db")
 	}
 	return db
+}
+
+func MigrateUp(db *gorm.DB, cfg DatabaseConfig) {
+	sqlDB, err := db.DB()
+
+	if err != nil {
+		panic(err)
+	}
+	driver, err := pg.WithInstance(sqlDB, &pg.Config{})
+	if err != nil {
+		panic(err)
+	}
+	mig, err := migrate.NewWithDatabaseInstance("file://"+cfg.MigrationDir, cfg.Name, driver)
+	if err = mig.Up(); err != nil && !errors.Is(err, migrate.ErrNoChange) {
+		panic(err)
+	}
 }
