@@ -213,9 +213,7 @@ func (s *DatabaseTestSuite) TestPostRepoSql_New() {
 	}
 
 	for _, tt := range tests {
-		repo := &PostRepoSql{
-			Db: s.db,
-		}
+		repo := NewPostRepository(s.db)
 		got, err := repo.New(tt.args.record)
 		if err != nil && !tt.wantErr {
 			s.T().Errorf("PostRepoSql.New() error = %v, wantErr %v", err, nil)
@@ -264,9 +262,7 @@ func (s *DatabaseTestSuite) TestPostRepoSql_GetAll() {
 			)
 		}
 		tx.Commit()
-		repo := &PostRepoSql{
-			Db: s.db,
-		}
+		repo := NewPostRepository(s.db)
 		got, err := repo.GetAll()
 		if err != nil && !tt.wantErr {
 			s.T().Errorf("PostRepoSql.GetAll() error = %v, wantErr %v", err, nil)
@@ -336,9 +332,7 @@ func (s *DatabaseTestSuite) TestPostRepoSql_SearchByTitle() {
 	}
 
 	for _, tt := range tests {
-		repo := &PostRepoSql{
-			Db: s.db,
-		}
+		repo := NewPostRepository(s.db)
 		got, err := repo.SearchByTitle(tt.args.title)
 		if err != nil && !tt.wantErr {
 			s.T().Errorf("PostRepoSql.SearchByTitle() error = %v, wantErr %v", err, nil)
