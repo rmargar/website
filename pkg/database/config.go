@@ -7,5 +7,5 @@ type DatabaseConfig struct {
 	Name         string `envconfig:"DB_NAME" env-default:"postgres"`
 	Port         string `envconfig:"DB_PORT" env-default:"5432"`
 	Options      string `envconfig:"DB_OPTIONS" env-default:""`
-	MigrationDir string `envconfig:"DB_MIGRATION_DIR" env-default:"./resources/migrations"`
+	MigrationDir string `envconfig:"DB_MIGRATION_DIR" env-default:"./migrations"`
 }

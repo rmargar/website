@@ -6,6 +6,7 @@ import (
 
 	"github.com/golang-migrate/migrate"
 	pg "github.com/golang-migrate/migrate/database/postgres"
+	_ "github.com/golang-migrate/migrate/source/file" // this is needed to migrate from a file
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -18,20 +19,30 @@ func NewDB(cfg *DatabaseConfig) *gorm.DB {
 	if err != nil {
 		panic("could not connect to db")
 	}
+
 	return db
 }
 
-func MigrateUp(db *gorm.DB, cfg DatabaseConfig) {
+func MigrateUp(db *gorm.DB, cfg *DatabaseConfig) {
 	sqlDB, err := db.DB()
 
 	if err != nil {
 		panic(err)
 	}
-	driver, err := pg.WithInstance(sqlDB, &pg.Config{})
+
+	driver, err := pg.WithInstance(sqlDB, &pg.Config{
+		MigrationsTable: "schema_migrations",
+	})
+
 	if err != nil {
 		panic(err)
 	}
+
 	mig, err := migrate.NewWithDatabaseInstance("file://"+cfg.MigrationDir, cfg.Name, driver)
+	if err != nil {
+		panic(err)
+	}
+
 	if err = mig.Up(); err != nil && !errors.Is(err, migrate.ErrNoChange) {
 		panic(err)
 	}
