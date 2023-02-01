@@ -16,9 +16,9 @@ func main() {
 	logging.ConfigureLogger()
 	log.Info(fmt.Sprintf("Server listening in port %s", cfg.Port))
 
-	db := database.NewDB(&cfg.Database)
+	db := database.NewGormDB(&cfg.Database)
 
-	database.MigrateUp(db, &cfg.Database)
+	database.MigrateUp(database.GetDB(db), &cfg.Database)
 
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", cfg.Port), rest.NewRouter(cfg)); err != nil {
 		log.Println("Http server error")
