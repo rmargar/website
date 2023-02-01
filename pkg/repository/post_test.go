@@ -193,16 +193,16 @@ func (s *DatabaseTestSuite) TestPostRepoSql_New() {
 		wantErr bool
 	}{
 		{
-			name:    "Should insert one succesfully",
+			name:    "Should insert one without ID",
 			args:    args{record: orm.Post{Author: "Test", Title: "Test", Content: "Test"}},
 			want:    orm.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"},
 			wantErr: false,
 		},
 		{
-			name:    "Should return error",
+			name:    "Should insert one with ID",
 			args:    args{record: orm.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test"}},
 			want:    orm.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test"},
-			wantErr: true,
+			wantErr: false,
 		},
 		{
 			name:    "Should return primary key error",
@@ -214,7 +214,7 @@ func (s *DatabaseTestSuite) TestPostRepoSql_New() {
 
 	for _, tt := range tests {
 		repo := &PostRepoSql{
-			db: s.db,
+			Db: s.db,
 		}
 		got, err := repo.New(tt.args.record)
 		if err != nil && !tt.wantErr {
@@ -225,6 +225,126 @@ func (s *DatabaseTestSuite) TestPostRepoSql_New() {
 		assert.Equal(s.T(), got.Author, tt.want.Author)
 		assert.Equal(s.T(), got.Title, tt.want.Title)
 		assert.Equal(s.T(), got.ID, tt.want.ID)
+	}
+}
+
+func (s *DatabaseTestSuite) TestPostRepoSql_GetAll() {
+
+	tests := []struct {
+		name         string
+		wantErr      bool
+		addedEntries int
+	}{
+		{
+			name:         "Should retrieve all",
+			wantErr:      false,
+			addedEntries: 2,
+		},
+		{
+			name:         "Should retrieve none",
+			wantErr:      false,
+			addedEntries: 0,
+		},
+	}
+
+	for _, tt := range tests {
+		want := []orm.Post{}
+		tx := s.db.Begin()
+		for i := 1; i <= tt.addedEntries; i++ {
+			stm := fmt.Sprintf(`INSERT INTO posts (id, created_at, updated_at, author, title, content, tags) VALUES (%d, '2023-01-31 21:06:22.329000 +00:00', '2023-01-31 21:06:24.213000 +00:00', 'Test_%d', 'Test_%d', 'Test_%d', '{}');`, i, i, i, i)
+			tx.Exec(stm)
+			want = append(
+				want,
+				orm.Post{
+					ID:      i,
+					Author:  fmt.Sprintf("Test_%d", i),
+					Content: fmt.Sprintf("Test_%d", i),
+					Title:   fmt.Sprintf("Test_%d", i),
+				},
+			)
+		}
+		tx.Commit()
+		repo := &PostRepoSql{
+			Db: s.db,
+		}
+		got, err := repo.GetAll()
+		if err != nil && !tt.wantErr {
+			s.T().Errorf("PostRepoSql.GetAll() error = %v, wantErr %v", err, nil)
+			return
+		}
+		assert.Equal(s.T(), len(got), len(want))
+		s.TearDownTest()
+	}
+}
+
+func (s *DatabaseTestSuite) TestPostRepoSql_SearchByTitle() {
+	tx := s.db.Begin()
+	for i := 1; i <= 2; i++ {
+		stm := fmt.Sprintf(`INSERT INTO posts (id, created_at, updated_at, author, title, content, tags) VALUES (%d, '2023-01-31 21:06:22.329000 +00:00', '2023-01-31 21:06:24.213000 +00:00', 'Test_%d', 'Test_%d', 'Test_%d', '{}');`, i, i, i, i)
+		tx.Exec(stm)
+	}
+	tx.Commit()
+
+	type args struct {
+		title string
+	}
+
+	tests := []struct {
+		name    string
+		wantErr bool
+		args    args
+		want    []orm.Post
+	}{
+		{
+			name:    "Should retrieve all",
+			wantErr: false,
+			args:    args{title: "Test"},
+			want: []orm.Post{
+				{
+					ID:      1,
+					Author:  "Test_1",
+					Content: "Test_1",
+					Title:   "Test_1",
+				},
+				{
+					ID:      2,
+					Author:  "Test_2",
+					Content: "Test_2",
+					Title:   "Test_2",
+				},
+			},
+		},
+		{
+			name:    "Should retrieve none",
+			wantErr: false,
+			args:    args{title: "I don't exist"},
+			want:    []orm.Post{},
+		},
+		{
+			name:    "Should retrieve one",
+			wantErr: false,
+			args:    args{title: "Test_2"},
+			want: []orm.Post{
+				{
+					ID:      2,
+					Author:  "Test_2",
+					Content: "Test_2",
+					Title:   "Test_2",
+				},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		repo := &PostRepoSql{
+			Db: s.db,
+		}
+		got, err := repo.SearchByTitle(tt.args.title)
+		if err != nil && !tt.wantErr {
+			s.T().Errorf("PostRepoSql.SearchByTitle() error = %v, wantErr %v", err, nil)
+			return
+		}
+		assert.Equal(s.T(), len(got), len(tt.want))
 	}
 }
 
