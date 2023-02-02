@@ -11,7 +11,7 @@ import (
 	"github.com/ory/dockertest"
 	"github.com/ory/dockertest/docker"
 	"github.com/rmargar/website/pkg/database"
-	"github.com/rmargar/website/pkg/orm"
+	"github.com/rmargar/website/pkg/domain"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/driver/postgres"
@@ -183,31 +183,31 @@ func RemoveAllData(db *gorm.DB) {
 func (s *DatabaseTestSuite) TestPostRepoSql_New() {
 
 	type args struct {
-		record orm.Post
+		record domain.Post
 	}
 
 	tests := []struct {
 		name    string
 		args    args
-		want    orm.Post
+		want    domain.Post
 		wantErr bool
 	}{
 		{
 			name:    "Should insert one without ID",
-			args:    args{record: orm.Post{Author: "Test", Title: "Test", Content: "Test"}},
-			want:    orm.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"},
+			args:    args{record: domain.Post{Author: "Test", Title: "Test", Content: "Test"}},
+			want:    domain.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"},
 			wantErr: false,
 		},
 		{
 			name:    "Should insert one with ID",
-			args:    args{record: orm.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test"}},
-			want:    orm.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test"},
+			args:    args{record: domain.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test"}},
+			want:    domain.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test"},
 			wantErr: false,
 		},
 		{
 			name:    "Should return primary key error",
-			args:    args{record: orm.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"}},
-			want:    orm.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"},
+			args:    args{record: domain.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"}},
+			want:    domain.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"},
 			wantErr: true,
 		},
 	}
@@ -246,14 +246,14 @@ func (s *DatabaseTestSuite) TestPostRepoSql_GetAll() {
 	}
 
 	for _, tt := range tests {
-		want := []orm.Post{}
+		want := []domain.Post{}
 		tx := s.db.Begin()
 		for i := 1; i <= tt.addedEntries; i++ {
 			stm := fmt.Sprintf(`INSERT INTO posts (id, created_at, updated_at, author, title, content, tags) VALUES (%d, '2023-01-31 21:06:22.329000 +00:00', '2023-01-31 21:06:24.213000 +00:00', 'Test_%d', 'Test_%d', 'Test_%d', '{}');`, i, i, i, i)
 			tx.Exec(stm)
 			want = append(
 				want,
-				orm.Post{
+				domain.Post{
 					ID:      i,
 					Author:  fmt.Sprintf("Test_%d", i),
 					Content: fmt.Sprintf("Test_%d", i),
@@ -289,13 +289,13 @@ func (s *DatabaseTestSuite) TestPostRepoSql_SearchByTitle() {
 		name    string
 		wantErr bool
 		args    args
-		want    []orm.Post
+		want    []domain.Post
 	}{
 		{
 			name:    "Should retrieve all",
 			wantErr: false,
 			args:    args{title: "Test"},
-			want: []orm.Post{
+			want: []domain.Post{
 				{
 					ID:      1,
 					Author:  "Test_1",
@@ -314,13 +314,13 @@ func (s *DatabaseTestSuite) TestPostRepoSql_SearchByTitle() {
 			name:    "Should retrieve none",
 			wantErr: false,
 			args:    args{title: "I don't exist"},
-			want:    []orm.Post{},
+			want:    []domain.Post{},
 		},
 		{
 			name:    "Should retrieve one",
 			wantErr: false,
 			args:    args{title: "Test_2"},
-			want: []orm.Post{
+			want: []domain.Post{
 				{
 					ID:      2,
 					Author:  "Test_2",
