@@ -7,9 +7,9 @@ import (
 )
 
 type PostRepository interface {
-	New(record orm.Post) (orm.Post, error)
-	GetAll() ([]orm.Post, error)
-	SearchByTitle(string) ([]orm.Post, error)
+	New(post domain.Post) (*domain.Post, error)
+	GetAll() ([]*domain.Post, error)
+	SearchByTitle(string) ([]*domain.Post, error)
 }
 
 type PostRepoSql struct {

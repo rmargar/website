@@ -53,3 +53,7 @@ func ParseForm(r *http.Request, w http.ResponseWriter) (ContactForm, error) {
 	defer r.Body.Close()
 	return contactDetails, nil
 }
+
+func AddPost(w http.ResponseWriter, r *http.Request) {
+
+}
