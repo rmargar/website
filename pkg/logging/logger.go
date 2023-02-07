@@ -13,7 +13,7 @@ func LogFormatter() *log.JSONFormatter {
 	}
 }
 
-func NewLogger() {
+func ConfigureLogger() {
 	log.SetFormatter(LogFormatter())
 	log.SetLevel(log.DebugLevel)
 }
