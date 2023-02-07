@@ -7,8 +7,10 @@ import (
 	"github.com/rmargar/website/pkg/repository"
 )
 
-type PostsService interface {
-	Create(title string, content string, tags []string) *domain.Post
+type PostService interface {
+	Create(title string, content string, tags []string) (*domain.Post, error)
+	GetOneByTitle(title string) (*domain.Post, error)
+	GetAll() ([]*domain.Post, error)
 }
 
 type Posts struct {
