@@ -6,15 +6,16 @@ require (
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-chi/httplog v0.2.5
 	github.com/go-chi/jwtauth v1.2.0
+	github.com/go-playground/validator/v10 v10.11.2
 	github.com/golang-migrate/migrate v3.5.4+incompatible
-	github.com/google/jsonapi v1.0.0
 	github.com/ilyakaznacheev/cleanenv v1.4.2
+	github.com/kinbiko/jsonassert v1.1.1
 	github.com/lib/pq v1.10.7
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.1
 	gorm.io/driver/postgres v1.4.6
-	gorm.io/gorm v1.24.3
+	gorm.io/gorm v1.24.5
 	gotest.tools v2.2.0+incompatible
 )
 
@@ -33,7 +34,6 @@ require (
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.11.2 // indirect
 	github.com/goccy/go-json v0.3.5 // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
@@ -43,7 +43,6 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
-	github.com/kinbiko/jsonassert v1.1.1 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/lestrrat-go/backoff/v2 v2.0.7 // indirect
 	github.com/lestrrat-go/httpcc v1.0.0 // indirect
