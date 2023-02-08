@@ -14,8 +14,8 @@ require (
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.1
-	gorm.io/driver/postgres v1.4.7
-	gorm.io/gorm v1.24.3
+	gorm.io/driver/postgres v1.4.6
+	gorm.io/gorm v1.24.5
 	gotest.tools v2.2.0+incompatible
 )
 
