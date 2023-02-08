@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/httplog"
 	"github.com/rmargar/website/pkg/application"
 	"github.com/rmargar/website/pkg/config"
-	"github.com/rmargar/website/pkg/rest/controllers"
+	"github.com/rmargar/website/pkg/web/controllers"
 )
 
 func NewRouter(cfg *config.Config, services application.Services) *chi.Mux {

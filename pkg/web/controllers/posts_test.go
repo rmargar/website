@@ -9,7 +9,7 @@ import (
 
 	"github.com/kinbiko/jsonassert"
 	"github.com/rmargar/website/pkg/domain"
-	"github.com/rmargar/website/pkg/rest/controllers"
+	"github.com/rmargar/website/pkg/web/controllers"
 	"github.com/stretchr/testify/mock"
 )
 

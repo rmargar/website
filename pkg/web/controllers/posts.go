@@ -8,8 +8,8 @@ import (
 	"github.com/go-chi/jwtauth"
 	"github.com/rmargar/website/pkg/application"
 	"github.com/rmargar/website/pkg/config"
-	"github.com/rmargar/website/pkg/rest/representations"
-	"github.com/rmargar/website/pkg/rest/resources"
+	"github.com/rmargar/website/pkg/web/representations"
+	"github.com/rmargar/website/pkg/web/resources"
 )
 
 type Posts struct {

@@ -9,7 +9,7 @@ import (
 	"github.com/rmargar/website/pkg/database"
 	"github.com/rmargar/website/pkg/logging"
 	"github.com/rmargar/website/pkg/repository"
-	"github.com/rmargar/website/pkg/rest"
+	web "github.com/rmargar/website/pkg/web"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -27,7 +27,7 @@ func main() {
 	logging.ConfigureLogger()
 	log.Info(fmt.Sprintf("Server listening in port %s", cfg.Port))
 
-	if err := http.ListenAndServe(fmt.Sprintf(":%s", cfg.Port), rest.NewRouter(cfg, services)); err != nil {
-		log.Println("Http server error")
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", cfg.Port), web.NewRouter(cfg, services)); err != nil {
+		log.Panic("Http server error")
 	}
 }
