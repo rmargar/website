@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-chi/httplog v0.2.5
-	github.com/go-chi/jwtauth v4.0.4+incompatible
+	github.com/go-chi/jwtauth v1.2.0
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/golang-migrate/migrate v3.5.4+incompatible
 	github.com/ilyakaznacheev/cleanenv v1.4.2
@@ -37,6 +37,7 @@ require (
 	github.com/go-chi/chi v1.5.4 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
+	github.com/goccy/go-json v0.3.5 // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect

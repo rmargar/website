@@ -27,9 +27,9 @@ func (m *PostServiceMock) GetOneByTitle(title string) (*domain.Post, error) {
 	return args.Get(0).(*domain.Post), args.Error(1)
 }
 
-func (m *PostServiceMock) GetAll() ([]*domain.Post, error) {
+func (m *PostServiceMock) GetAll() ([]domain.Post, error) {
 	args := m.Called()
-	return args.Get(0).([]*domain.Post), args.Error(1)
+	return args.Get(0).([]domain.Post), args.Error(1)
 }
 
 func TestAddPost_Success(t *testing.T) {

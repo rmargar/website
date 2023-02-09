@@ -29,5 +29,6 @@ func NewRouter(cfg *config.Config, services application.Services) *chi.Mux {
 	})
 	r.Post("/static/", controllers.HandlePostForm(&cfg.SmtpConfig, controllers.ParseForm))
 	controllers.SetupPosts(r, cfg, services.PostService)
+	controllers.SetupBlog(r, cfg, services.PostService)
 	return r
 }

@@ -6,6 +6,7 @@ import (
 	cleanenv "github.com/ilyakaznacheev/cleanenv"
 	"github.com/rmargar/website/pkg/database"
 	"github.com/rmargar/website/pkg/email"
+	"github.com/rmargar/website/pkg/web/html"
 )
 
 type Config struct {
@@ -13,6 +14,7 @@ type Config struct {
 	JwtSecret  string `env:"JWT_SECRET"`
 	SmtpConfig email.SmtpConfig
 	Database   database.DatabaseConfig
+	HTML       html.HTMLConfig
 }
 
 func GetConfig() *Config {

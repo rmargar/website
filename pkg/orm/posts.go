@@ -40,10 +40,10 @@ func NewPost(p Post) *domain.Post {
 	}
 }
 
-func NewPosts(p []Post) []*domain.Post {
-	posts := make([]*domain.Post, 0, len(p))
+func NewPosts(p []Post) []domain.Post {
+	posts := make([]domain.Post, 0, len(p))
 	for _, post := range p {
-		posts = append(posts, NewPost(post))
+		posts = append(posts, *NewPost(post))
 	}
 	return posts
 }

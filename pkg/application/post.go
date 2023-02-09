@@ -10,7 +10,7 @@ import (
 type PostService interface {
 	Create(title string, content string, tags []string) (*domain.Post, error)
 	GetOneByTitle(title string) (*domain.Post, error)
-	GetAll() ([]*domain.Post, error)
+	GetAll() ([]domain.Post, error)
 }
 
 type Posts struct {
@@ -31,15 +31,15 @@ func (p *Posts) GetOneByTitle(title string) (*domain.Post, error) {
 
 	switch {
 	case len(foundPosts) > 1:
-		return foundPosts[0], errors.New("More than one post was found")
+		return &foundPosts[0], errors.New("More than one post was found")
 	case len(foundPosts) == 0:
 		return post, errors.New("No posts found")
 	default:
-		return foundPosts[0], nil
+		return &foundPosts[0], nil
 	}
 }
 
-func (p *Posts) GetAll() ([]*domain.Post, error) {
+func (p *Posts) GetAll() ([]domain.Post, error) {
 	return p.postRepo.GetAll()
 }
 
