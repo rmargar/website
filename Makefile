@@ -13,4 +13,4 @@ run:
 
 test:
 	@printf "$(OK_COLOR)==> Running tests$(NO_COLOR)\n"
-	go test ./... -cover
+	go test ./... -cover -coverprofile=cover.out
