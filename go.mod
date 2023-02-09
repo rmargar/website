@@ -10,6 +10,7 @@ require (
 	github.com/golang-migrate/migrate v3.5.4+incompatible
 	github.com/ilyakaznacheev/cleanenv v1.4.2
 	github.com/kinbiko/jsonassert v1.1.1
+	github.com/leekchan/gtf v0.0.0-20190214083521-5fba33c5b00b
 	github.com/lib/pq v1.10.7
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/sirupsen/logrus v1.9.0

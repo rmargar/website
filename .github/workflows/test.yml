@@ -25,3 +25,9 @@ jobs:
 
       - name: Run tests
         run: make test
+
+      - name: Code coverage
+        uses: codecov/codecov-action@v3
+        with:
+           verbose: true
+           files: ./cover.out
