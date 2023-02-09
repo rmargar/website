@@ -16,6 +16,8 @@ type Post struct {
 	Tags      pq.StringArray `gorm:"type:text[]"`
 	Title     string
 	Content   string `gorm:"type:text"`
+	URLPath   string `gorm:"column:url_path" `
+	Summary   string `gorm:"not null"`
 }
 
 func NewPostDB(p domain.Post) *Post {
@@ -25,6 +27,8 @@ func NewPostDB(p domain.Post) *Post {
 		Tags:    p.Tags,
 		Title:   p.Title,
 		Content: p.Content,
+		URLPath: p.URLPath,
+		Summary: p.Summary,
 	}
 }
 
@@ -37,6 +41,8 @@ func NewPost(p Post) *domain.Post {
 		Tags:     p.Tags,
 		Content:  p.Content,
 		Title:    p.Title,
+		URLPath:  p.URLPath,
+		Summary:  p.Summary,
 	}
 }
 

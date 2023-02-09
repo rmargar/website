@@ -194,20 +194,20 @@ func (s *DatabaseTestSuite) TestPostRepoSql_New() {
 	}{
 		{
 			name:    "Should insert one without ID",
-			args:    args{record: domain.Post{Author: "Test", Title: "Test", Content: "Test"}},
-			want:    domain.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"},
+			args:    args{record: domain.Post{Author: "Test", Title: "Test", Content: "Test", URLPath: "Test1"}},
+			want:    domain.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test", URLPath: "Test"},
 			wantErr: false,
 		},
 		{
 			name:    "Should insert one with ID",
-			args:    args{record: domain.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test"}},
-			want:    domain.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test"},
+			args:    args{record: domain.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test", URLPath: "Test2"}},
+			want:    domain.Post{ID: 4, Author: "Test", Title: "Test", Content: "Test", URLPath: "Test2"},
 			wantErr: false,
 		},
 		{
 			name:    "Should return primary key error",
-			args:    args{record: domain.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"}},
-			want:    domain.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test"},
+			args:    args{record: domain.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test", URLPath: "Test3"}},
+			want:    domain.Post{ID: 1, Author: "Test", Title: "Test", Content: "Test", URLPath: "Test3"},
 			wantErr: true,
 		},
 	}
@@ -249,7 +249,7 @@ func (s *DatabaseTestSuite) TestPostRepoSql_GetAll() {
 		want := []domain.Post{}
 		tx := s.db.Begin()
 		for i := 1; i <= tt.addedEntries; i++ {
-			stm := fmt.Sprintf(`INSERT INTO posts (id, created_at, updated_at, author, title, content, tags) VALUES (%d, '2023-01-31 21:06:22.329000 +00:00', '2023-01-31 21:06:24.213000 +00:00', 'Test_%d', 'Test_%d', 'Test_%d', '{}');`, i, i, i, i)
+			stm := fmt.Sprintf(`INSERT INTO posts (id, created_at, updated_at, author, title, content, tags, url_path) VALUES (%d, '2023-01-31 21:06:22.329000 +00:00', '2023-01-31 21:06:24.213000 +00:00', 'Test_%d', 'Test_%d', 'Test_%d', '{}', 'test%d');`, i, i, i, i, i)
 			tx.Exec(stm)
 			want = append(
 				want,
@@ -276,7 +276,7 @@ func (s *DatabaseTestSuite) TestPostRepoSql_GetAll() {
 func (s *DatabaseTestSuite) TestPostRepoSql_SearchByTitle() {
 	tx := s.db.Begin()
 	for i := 1; i <= 2; i++ {
-		stm := fmt.Sprintf(`INSERT INTO posts (id, created_at, updated_at, author, title, content, tags) VALUES (%d, '2023-01-31 21:06:22.329000 +00:00', '2023-01-31 21:06:24.213000 +00:00', 'Test_%d', 'Test_%d', 'Test_%d', '{}');`, i, i, i, i)
+		stm := fmt.Sprintf(`INSERT INTO posts (id, created_at, updated_at, author, title, content, tags, url_path) VALUES (%d, '2023-01-31 21:06:22.329000 +00:00', '2023-01-31 21:06:24.213000 +00:00', 'Test_%d', 'Test_%d', 'Test_%d', '{}', 'test%d');`, i, i, i, i, i)
 		tx.Exec(stm)
 	}
 	tx.Commit()
@@ -301,12 +301,14 @@ func (s *DatabaseTestSuite) TestPostRepoSql_SearchByTitle() {
 					Author:  "Test_1",
 					Content: "Test_1",
 					Title:   "Test_1",
+					URLPath: "test1",
 				},
 				{
 					ID:      2,
 					Author:  "Test_2",
 					Content: "Test_2",
 					Title:   "Test_2",
+					URLPath: "test2",
 				},
 			},
 		},
