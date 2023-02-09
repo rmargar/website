@@ -30,3 +30,4 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
            verbose: true
+           files: ./cover.out
