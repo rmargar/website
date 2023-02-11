@@ -13,7 +13,7 @@
 
 
 <div class="row medium-8 large-7 columns">
-    <h1 class="blog-header"> {{ .Post.Title }}<small> {{ .Post.Added | format_date }}</small></h1>
+    <h1 class="blog-header"> {{ .Post.Title }} <br> <small> {{ .Post.Added | format_date }}</small></h1>
     <div class="post-image-container"><img class="thumbnail" src="../static/assets/jpeg/rmargar.jpeg"></div>
     {{ template "partial/info.tpl" .Post }}
 
