@@ -3,7 +3,7 @@
 <script>
 
     var disqus_config = function () {
-    this.page.url = '{{ .CurrentURL }}';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.url = 'http://rmargar.net';  // Replace PAGE_URL with your page's canonical URL variable
     this.page.identifier = 'post-{{ .Post.ID }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 
