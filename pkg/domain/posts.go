@@ -10,4 +10,6 @@ type Post struct {
 	Tags     []string
 	Title    string
 	Content  string
+	Summary  string
+	URLPath  string
 }

@@ -16,8 +16,8 @@ type postRepoMock struct {
 
 var mockNumPosts int = 5
 
-func GetMockPosts() []*domain.Post {
-	var posts []*domain.Post
+func GetMockPosts() []domain.Post {
+	var posts []domain.Post
 	var post domain.Post
 	for i := 1; i <= mockNumPosts; i++ {
 		post = domain.Post{
@@ -29,7 +29,7 @@ func GetMockPosts() []*domain.Post {
 			Added:    time.Now(),
 			Modified: time.Now(),
 		}
-		posts = append(posts, &post)
+		posts = append(posts, post)
 	}
 	return posts
 }
@@ -52,12 +52,16 @@ func (p *postRepoMock) New(post domain.Post) (*domain.Post, error) {
 	}, nil
 }
 
-func (p *postRepoMock) GetAll() ([]*domain.Post, error) {
+func (p *postRepoMock) GetAll() ([]domain.Post, error) {
 	return GetMockPosts(), nil
 }
 
-func (p *postRepoMock) SearchByTitle(title string) ([]*domain.Post, error) {
+func (p *postRepoMock) SearchByTitle(title string) ([]domain.Post, error) {
 	return GetMockPosts(), nil
+}
+
+func (p *postRepoMock) GetOneByUrlPath(string) (*domain.Post, error) {
+	return &GetMockPosts()[0], nil
 }
 
 func TestPostService_Create(t *testing.T) {
@@ -66,8 +70,10 @@ func TestPostService_Create(t *testing.T) {
 		Title:   "Test",
 		Content: "Test",
 		Tags:    []string{"Golang", "Testing"},
+		Summary: "Some summary",
+		URLPath: "test",
 	}
-	createdPost, err := postService.Create(newPost.Title, newPost.Content, newPost.Tags)
+	createdPost, err := postService.Create(newPost.Title, newPost.Content, newPost.Tags, newPost.Summary, newPost.URLPath)
 	if err != nil {
 		t.Errorf("PostService.Create() threw error (%v), expected (%v)", err, nil)
 	}
@@ -127,7 +133,7 @@ func TestPostService_GetOneByTitle(t *testing.T) {
 		postService := NewPostService(&postRepoMock{})
 		got, err := postService.GetOneByTitle(tt.args.title)
 		if tt.args.numPosts > 0 {
-			tt.want = *GetMockPosts()[0]
+			tt.want = GetMockPosts()[0]
 			assert.Equal(t, got.Title, tt.want.Title)
 			assert.Equal(t, got.Content, tt.want.Content)
 			assert.Equal(t, got.Tags[0], tt.want.Tags[0])

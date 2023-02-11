@@ -8,8 +8,8 @@ import (
 	"github.com/go-chi/jwtauth"
 	"github.com/rmargar/website/pkg/application"
 	"github.com/rmargar/website/pkg/config"
-	"github.com/rmargar/website/pkg/rest/representations"
-	"github.com/rmargar/website/pkg/rest/resources"
+	"github.com/rmargar/website/pkg/web/representations"
+	"github.com/rmargar/website/pkg/web/resources"
 )
 
 type Posts struct {
@@ -39,7 +39,7 @@ func (p Posts) AddPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdPost, err := p.PostService.Create(payload.Title, payload.Content, payload.Tags)
+	createdPost, err := p.PostService.Create(payload.Title, payload.Content, payload.Tags, payload.Summary, payload.URLPath)
 
 	if err != nil {
 		representations.WriteBadRequestWithErr(w, err)

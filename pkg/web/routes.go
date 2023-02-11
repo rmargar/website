@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/httplog"
 	"github.com/rmargar/website/pkg/application"
 	"github.com/rmargar/website/pkg/config"
-	"github.com/rmargar/website/pkg/rest/controllers"
+	"github.com/rmargar/website/pkg/web/controllers"
 )
 
 func NewRouter(cfg *config.Config, services application.Services) *chi.Mux {
@@ -29,5 +29,6 @@ func NewRouter(cfg *config.Config, services application.Services) *chi.Mux {
 	})
 	r.Post("/static/", controllers.HandlePostForm(&cfg.SmtpConfig, controllers.ParseForm))
 	controllers.SetupPosts(r, cfg, services.PostService)
+	controllers.SetupBlog(r, cfg, services.PostService)
 	return r
 }
