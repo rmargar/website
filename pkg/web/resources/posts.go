@@ -12,6 +12,7 @@ type PostPayloadJSONApi struct {
 	Tags    []string `json:"tags"`
 	URLPath string   `json:"urlPath" validate:"required"`
 	Summary string   `json:"summary"`
+	ImgURL  string   `json:"imgUrl"`
 }
 
 type PostJSONApi struct {
@@ -24,6 +25,7 @@ type PostJSONApi struct {
 	Modified time.Time `json:"modified"`
 	Summary  string    `json:"summary"`
 	URLPath  string    `json:"urlPath"`
+	ImgURL   string    `json:"imgUrl"`
 }
 
 type PostCreatedJSONApi struct {
@@ -44,6 +46,7 @@ func BuildCreatedResponse(post *domain.Post) *PostCreatedJSONApi {
 			Modified: post.Modified,
 			Summary:  post.Summary,
 			URLPath:  post.URLPath,
+			ImgURL:   post.ImgURL,
 		},
 	}
 }

@@ -71,7 +71,7 @@ func TestAddPost_Success(t *testing.T) {
 
 	assert := jsonassert.New(t)
 	const layout string = "2006-01-02T15:04:05.999999999-07:00"
-	expectedResponse := fmt.Sprintf(`{"msg":"Created","data":{"id":1,"title":"Test","content":"Test","tags":[],"author":"rmargar","added":"%s","modified":"%s","urlPath":"test", "summary":""}}`, nowTime.Format(time.RFC3339Nano), nowTime.Format(time.RFC3339Nano))
+	expectedResponse := fmt.Sprintf(`{"msg":"Created","data":{"id":1,"title":"Test","content":"Test","tags":[],"author":"rmargar","added":"%s","modified":"%s","urlPath":"test", "summary":"", "imgUrl":""}}`, nowTime.Format(time.RFC3339Nano), nowTime.Format(time.RFC3339Nano))
 	assert.Assertf(writer.Body.String(), expectedResponse)
 }
 
