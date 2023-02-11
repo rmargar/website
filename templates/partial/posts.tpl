@@ -20,7 +20,7 @@
     <hr>
 
     {{ end }}
-    <script id="dsq-count-scr" src="https://rmargar-net-1.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="https://rmargar-net.disqus.com/count.js" async></script>
 </div>
 
 {{ end }}
