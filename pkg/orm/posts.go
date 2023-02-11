@@ -16,8 +16,8 @@ type Post struct {
 	Tags      pq.StringArray `gorm:"type:text[]"`
 	Title     string
 	Content   string `gorm:"type:text"`
-	URLPath   string `gorm:"column:url_path" `
-	Summary   string `gorm:"not null"`
+	URLPath   string `gorm:"column:url_path"`
+	Summary   string
 }
 
 func NewPostDB(p domain.Post) *Post {

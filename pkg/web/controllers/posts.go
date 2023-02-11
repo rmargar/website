@@ -39,7 +39,7 @@ func (p Posts) AddPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdPost, err := p.PostService.Create(payload.Title, payload.Content, payload.Tags)
+	createdPost, err := p.PostService.Create(payload.Title, payload.Content, payload.Tags, payload.Summary, payload.URLPath)
 
 	if err != nil {
 		representations.WriteBadRequestWithErr(w, err)

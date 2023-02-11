@@ -17,7 +17,7 @@ type PostServiceMock struct {
 	mock.Mock
 }
 
-func (m *PostServiceMock) Create(title string, content string, tags []string) (*domain.Post, error) {
+func (m *PostServiceMock) Create(title string, content string, tags []string, summary string, urlPath string) (*domain.Post, error) {
 	args := m.Called(title, content, tags)
 	return args.Get(0).(*domain.Post), args.Error(1)
 }
@@ -30,6 +30,11 @@ func (m *PostServiceMock) GetOneByTitle(title string) (*domain.Post, error) {
 func (m *PostServiceMock) GetAll() ([]domain.Post, error) {
 	args := m.Called()
 	return args.Get(0).([]domain.Post), args.Error(1)
+}
+
+func (m *PostServiceMock) GetByUrlPath(urlPath string) (domain.Post, error) {
+	args := m.Called()
+	return args.Get(0).(domain.Post), args.Error(1)
 }
 
 func TestAddPost_Success(t *testing.T) {

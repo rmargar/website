@@ -60,14 +60,20 @@ func (p *postRepoMock) SearchByTitle(title string) ([]domain.Post, error) {
 	return GetMockPosts(), nil
 }
 
+func (p *postRepoMock) GetOneByUrlPath(string) (*domain.Post, error) {
+	return &GetMockPosts()[0], nil
+}
+
 func TestPostService_Create(t *testing.T) {
 	postService := NewPostService(&postRepoMock{})
 	newPost := domain.Post{
 		Title:   "Test",
 		Content: "Test",
 		Tags:    []string{"Golang", "Testing"},
+		Summary: "Some summary",
+		URLPath: "test",
 	}
-	createdPost, err := postService.Create(newPost.Title, newPost.Content, newPost.Tags)
+	createdPost, err := postService.Create(newPost.Title, newPost.Content, newPost.Tags, newPost.Summary, newPost.URLPath)
 	if err != nil {
 		t.Errorf("PostService.Create() threw error (%v), expected (%v)", err, nil)
 	}

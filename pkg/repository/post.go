@@ -10,6 +10,7 @@ type PostRepository interface {
 	New(post domain.Post) (*domain.Post, error)
 	GetAll() ([]domain.Post, error)
 	SearchByTitle(string) ([]domain.Post, error)
+	GetOneByUrlPath(string) (*domain.Post, error)
 }
 
 type PostRepoSql struct {
@@ -38,6 +39,15 @@ func (p *PostRepoSql) SearchByTitle(title string) ([]domain.Post, error) {
 		return orm.NewPosts(posts), result.Error
 	}
 	return orm.NewPosts(posts), nil
+}
+
+func (p *PostRepoSql) GetOneByUrlPath(urlPath string) (*domain.Post, error) {
+	var post orm.Post
+	result := p.Db.Where("url_path = '" + urlPath + "'").First(&post)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return orm.NewPost(post), nil
 }
 
 func NewPostRepository(db *gorm.DB) *PostRepoSql {

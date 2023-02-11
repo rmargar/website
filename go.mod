@@ -59,7 +59,9 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rs/zerolog v1.27.0 // indirect
+	github.com/russross/blackfriday v1.6.0 // indirect
 	github.com/stretchr/objx v0.5.0 // indirect
+	github.com/yuin/goldmark v1.5.4 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
 	golang.org/x/net v0.5.0 // indirect
 	golang.org/x/sys v0.4.0 // indirect
