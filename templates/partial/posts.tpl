@@ -7,7 +7,11 @@
         <div class="clearfix">
             {{ template "partial/info.tpl" . }}
         </div>
+<<<<<<< HEAD
         <div class="post-image-container"><img src="{{- if .ImgURL -}} {{ .ImgURL}} {{- else -}} ../static/assets/jpeg/rmargar.jpeg {{ end }}"></div>
+=======
+        <div class="post-image-container"><img src="/static/assets/jpeg/rmargar.jpeg"></div>
+>>>>>>> 3fdae74 (feat: get posts by tag)
     </div>
 
     <p class="post-summary">

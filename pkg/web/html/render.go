@@ -13,6 +13,7 @@ import (
 type RenderData struct {
 	Posts      []domain.Post
 	CurrentURL string
+	Tag        string
 }
 
 type HTMLPost struct {
