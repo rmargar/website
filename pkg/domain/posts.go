@@ -12,4 +12,5 @@ type Post struct {
 	Content  string
 	Summary  string
 	URLPath  string
+	ImgURL   string
 }

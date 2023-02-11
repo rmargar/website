@@ -18,6 +18,7 @@ type Post struct {
 	Content   string `gorm:"type:text"`
 	URLPath   string `gorm:"column:url_path"`
 	Summary   string
+	ImgURL    string
 }
 
 func NewPostDB(p domain.Post) *Post {
@@ -29,6 +30,7 @@ func NewPostDB(p domain.Post) *Post {
 		Content: p.Content,
 		URLPath: p.URLPath,
 		Summary: p.Summary,
+		ImgURL:  p.ImgURL,
 	}
 }
 
@@ -43,6 +45,7 @@ func NewPost(p Post) *domain.Post {
 		Title:    p.Title,
 		URLPath:  p.URLPath,
 		Summary:  p.Summary,
+		ImgURL:   p.ImgURL,
 	}
 }
 
