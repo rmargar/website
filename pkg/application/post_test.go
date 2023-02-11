@@ -64,6 +64,9 @@ func (p *postRepoMock) GetOneByUrlPath(string) (*domain.Post, error) {
 	return &GetMockPosts()[0], nil
 }
 
+func (p *postRepoMock) GetByTag(string) ([]domain.Post, error) {
+	return GetMockPosts(), nil
+}
 func TestPostService_Create(t *testing.T) {
 	postService := NewPostService(&postRepoMock{})
 	newPost := domain.Post{

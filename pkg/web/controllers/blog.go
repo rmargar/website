@@ -23,6 +23,7 @@ func SetupBlog(r chi.Router, cfg *config.Config, postService application.PostSer
 	r.Group(func(r chi.Router) {
 		r.Get("/blog", blogController.GetBlogIndex)
 		r.Get("/blog/{postUrlPath}", blogController.GetPost)
+		r.Get("/blog/tag/{tag}", blogController.GetTag)
 	})
 }
 
@@ -40,5 +41,13 @@ func (b *Blog) GetPost(w http.ResponseWriter, r *http.Request) {
 	currentURL := r.Host + r.URL.Path
 	data := html.RenderPost(post, currentURL)
 
+	t.Execute(w, data)
+}
+
+func (b *Blog) GetTag(w http.ResponseWriter, r *http.Request) {
+	t := b.html.Templates["tag.tpl"]
+	tag := chi.URLParam(r, "tag")
+	allPosts, _ := b.service.GetByTag(tag)
+	data := html.RenderData{CurrentURL: r.Host + r.URL.Path, Posts: allPosts, Tag: tag}
 	t.Execute(w, data)
 }

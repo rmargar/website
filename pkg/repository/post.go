@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/rmargar/website/pkg/domain"
 	"github.com/rmargar/website/pkg/orm"
 	"gorm.io/gorm"
@@ -11,6 +13,7 @@ type PostRepository interface {
 	GetAll() ([]domain.Post, error)
 	SearchByTitle(string) ([]domain.Post, error)
 	GetOneByUrlPath(string) (*domain.Post, error)
+	GetByTag(string) ([]domain.Post, error)
 }
 
 type PostRepoSql struct {
@@ -45,9 +48,18 @@ func (p *PostRepoSql) GetOneByUrlPath(urlPath string) (*domain.Post, error) {
 	var post orm.Post
 	result := p.Db.Where("url_path = '" + urlPath + "'").First(&post)
 	if result.Error != nil {
-		return nil, result.Error
+		return orm.NewPost(post), result.Error
 	}
 	return orm.NewPost(post), nil
+}
+
+func (p *PostRepoSql) GetByTag(tag string) ([]domain.Post, error) {
+	var posts []orm.Post
+	result := p.Db.Where(fmt.Sprintf("'%s'=any( tags)", tag)).Find(&posts)
+	if result.Error != nil {
+		return orm.NewPosts(posts), result.Error
+	}
+	return orm.NewPosts(posts), nil
 }
 
 func NewPostRepository(db *gorm.DB) *PostRepoSql {

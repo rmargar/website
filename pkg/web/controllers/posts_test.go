@@ -37,6 +37,11 @@ func (m *PostServiceMock) GetByUrlPath(urlPath string) (domain.Post, error) {
 	return args.Get(0).(domain.Post), args.Error(1)
 }
 
+func (m *PostServiceMock) GetByTag(tag string) ([]domain.Post, error) {
+	args := m.Called()
+	return args.Get(0).([]domain.Post), args.Error(1)
+}
+
 func TestAddPost_Success(t *testing.T) {
 	mockService := &PostServiceMock{}
 	nowTime := time.Now()
