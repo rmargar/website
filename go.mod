@@ -14,7 +14,7 @@ require (
 	github.com/lib/pq v1.10.7
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/sirupsen/logrus v1.9.0
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 	github.com/yuin/goldmark v1.5.4
 	gorm.io/driver/postgres v1.4.7
 	gorm.io/gorm v1.24.6
