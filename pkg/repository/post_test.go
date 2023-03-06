@@ -344,6 +344,64 @@ func (s *DatabaseTestSuite) TestPostRepoSql_SearchByTitle() {
 	}
 }
 
+func (s *DatabaseTestSuite) TestPostRepoSql_GetByTag() {
+	tx := s.db.Begin()
+	for i := 1; i <= 2; i++ {
+		stm := fmt.Sprintf(`INSERT INTO posts (id, created_at, updated_at, author, title, content, tags, url_path) VALUES (%d, '2023-01-31 21:06:22.329000 +00:00', '2023-01-31 21:06:24.213000 +00:00', 'Test_%d', 'Test_%d', 'Test_%d', '{"Test"}', 'test%d');`, i, i, i, i, i)
+		tx.Exec(stm)
+	}
+	tx.Commit()
+
+	type args struct {
+		tag string
+	}
+
+	tests := []struct {
+		name    string
+		wantErr bool
+		args    args
+		want    []domain.Post
+	}{
+		{
+			name:    "Should retrieve all",
+			wantErr: false,
+			args:    args{tag: "Test"},
+			want: []domain.Post{
+				{
+					ID:      1,
+					Author:  "Test_1",
+					Content: "Test_1",
+					Title:   "Test_1",
+					URLPath: "test1",
+				},
+				{
+					ID:      2,
+					Author:  "Test_2",
+					Content: "Test_2",
+					Title:   "Test_2",
+					URLPath: "test2",
+				},
+			},
+		},
+		{
+			name:    "Should retrieve none",
+			wantErr: false,
+			args:    args{tag: "sometag"},
+			want:    []domain.Post{},
+		},
+	}
+
+	for _, tt := range tests {
+		repo := NewPostRepository(s.db)
+		got, err := repo.GetByTag(tt.args.tag)
+		if err != nil && !tt.wantErr {
+			s.T().Errorf("PostRepoSql.GetByTag() error = %v, wantErr %v", err, nil)
+			return
+		}
+		assert.Equal(s.T(), len(got), len(tt.want))
+	}
+}
+
 func TestIntegrationDatabaseTestSuite(t *testing.T) {
 	suite.Run(t, &DatabaseTestSuite{})
 }

@@ -64,6 +64,9 @@ func (p *postRepoMock) GetOneByUrlPath(string) (*domain.Post, error) {
 	return &GetMockPosts()[0], nil
 }
 
+func (p *postRepoMock) GetByTag(string) ([]domain.Post, error) {
+	return GetMockPosts(), nil
+}
 func TestPostService_Create(t *testing.T) {
 	postService := NewPostService(&postRepoMock{})
 	newPost := domain.Post{
@@ -139,6 +142,49 @@ func TestPostService_GetOneByTitle(t *testing.T) {
 			assert.Equal(t, got.Tags[0], tt.want.Tags[0])
 			assert.Equal(t, len(got.Tags), len(tt.want.Tags))
 			assert.Equal(t, got.ID, tt.want.ID)
+		}
+		if err != nil && !tt.wantErr {
+			t.Errorf("PostRepoSql.New() error = %v, wantErr %v", err, nil)
+			return
+		}
+	}
+}
+
+func TestPostService_GetByTag(t *testing.T) {
+
+	type args struct {
+		tag      string
+		numPosts int
+	}
+
+	tests := []struct {
+		name    string
+		args    args
+		want    domain.Post
+		wantErr bool
+	}{
+		{
+			name:    "Should return one",
+			args:    args{tag: "Testing", numPosts: 1},
+			wantErr: false,
+		},
+		{
+			name:    "Should return two",
+			args:    args{tag: "Testing", numPosts: 2},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		mockNumPosts = tt.args.numPosts
+		postService := NewPostService(&postRepoMock{})
+		got, err := postService.GetByTag(tt.args.tag)
+		if tt.args.numPosts > 0 {
+			tt.want = GetMockPosts()[0]
+			assert.Equal(t, got[0].Title, tt.want.Title)
+			assert.Equal(t, got[0].Content, tt.want.Content)
+			assert.Equal(t, got[0].Tags[0], tt.want.Tags[0])
+			assert.Equal(t, len(got[0].Tags), len(tt.want.Tags))
+			assert.Equal(t, got[0].ID, tt.want.ID)
 		}
 		if err != nil && !tt.wantErr {
 			t.Errorf("PostRepoSql.New() error = %v, wantErr %v", err, nil)

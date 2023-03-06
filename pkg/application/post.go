@@ -12,6 +12,7 @@ type PostService interface {
 	GetOneByTitle(title string) (*domain.Post, error)
 	GetAll() ([]domain.Post, error)
 	GetByUrlPath(urlPath string) (domain.Post, error)
+	GetByTag(tag string) ([]domain.Post, error)
 }
 
 type Posts struct {
@@ -47,6 +48,10 @@ func (p *Posts) GetOneByTitle(title string) (*domain.Post, error) {
 
 func (p *Posts) GetAll() ([]domain.Post, error) {
 	return p.postRepo.GetAll()
+}
+
+func (p *Posts) GetByTag(tag string) ([]domain.Post, error) {
+	return p.postRepo.GetByTag(tag)
 }
 
 func NewPostService(p repository.PostRepository) *Posts {

@@ -7,7 +7,7 @@
         <div class="clearfix">
             {{ template "partial/info.tpl" . }}
         </div>
-        <div class="post-image-container"><img src="{{- if .ImgURL -}} {{ .ImgURL}} {{- else -}} ../static/assets/jpeg/rmargar.jpeg {{ end }}"></div>
+        <div class="post-image-container"><img src="{{- if .ImgURL -}} {{ .ImgURL}} {{- else -}} /static/assets/jpeg/rmargar.jpeg {{ end }}"></div>
     </div>
 
     <p class="post-summary">
