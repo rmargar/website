@@ -1,5 +1,6 @@
 
 [![codecov](https://codecov.io/gh/rmargar/website/branch/main/graph/badge.svg)](https://codecov.io/gh/rmargar/website) ![build](https://github.com/rmargar/website/actions/workflows/deploy.yaml/badge.svg)
+
 # rmargar.net
 
 This repository contains the source code for my personal website: [rmargar.net](http://rmargar.net)
@@ -8,8 +9,25 @@ It is basically a Go web server that serves static files with my personal dev po
 
 ## Development
 
-1. Run `make build` to build from source.
-2. Run the binary from `./bin/server`, or `make run`
+1. Build from source:
+
+```bash
+make build
+```
+
+2. Start the DB:
+
+```bash
+docker compose up -d db
+```
+
+3. Run the binary from `./bin/server`, or `make run`
+
+Update dependencies:
+
+```bash
+go mod tidy
+```
 
 ## Testing
 
