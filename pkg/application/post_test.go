@@ -149,3 +149,46 @@ func TestPostService_GetOneByTitle(t *testing.T) {
 		}
 	}
 }
+
+func TestPostService_GetByTag(t *testing.T) {
+
+	type args struct {
+		tag      string
+		numPosts int
+	}
+
+	tests := []struct {
+		name    string
+		args    args
+		want    domain.Post
+		wantErr bool
+	}{
+		{
+			name:    "Should return one",
+			args:    args{tag: "Testing", numPosts: 1},
+			wantErr: false,
+		},
+		{
+			name:    "Should return two",
+			args:    args{tag: "Testing", numPosts: 2},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		mockNumPosts = tt.args.numPosts
+		postService := NewPostService(&postRepoMock{})
+		got, err := postService.GetByTag(tt.args.tag)
+		if tt.args.numPosts > 0 {
+			tt.want = GetMockPosts()[0]
+			assert.Equal(t, got[0].Title, tt.want.Title)
+			assert.Equal(t, got[0].Content, tt.want.Content)
+			assert.Equal(t, got[0].Tags[0], tt.want.Tags[0])
+			assert.Equal(t, len(got[0].Tags), len(tt.want.Tags))
+			assert.Equal(t, got[0].ID, tt.want.ID)
+		}
+		if err != nil && !tt.wantErr {
+			t.Errorf("PostRepoSql.New() error = %v, wantErr %v", err, nil)
+			return
+		}
+	}
+}
