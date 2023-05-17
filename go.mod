@@ -13,7 +13,7 @@ require (
 	github.com/leekchan/gtf v0.0.0-20190214083521-5fba33c5b00b
 	github.com/lib/pq v1.10.9
 	github.com/ory/dockertest v3.3.5+incompatible
-	github.com/sirupsen/logrus v1.9.0
+	github.com/sirupsen/logrus v1.9.1
 	github.com/stretchr/testify v1.8.2
 	github.com/yuin/goldmark v1.5.4
 	gorm.io/driver/postgres v1.5.0
