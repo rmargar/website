@@ -1,5 +1,4 @@
-
-[![codecov](https://codecov.io/gh/rmargar/website/branch/main/graph/badge.svg)](https://codecov.io/gh/rmargar/website) ![build](https://github.com/rmargar/website/actions/workflows/deploy.yaml/badge.svg)
+[![codecov](https://codecov.io/gh/rmargar/rmargar.net/branch/main/graph/badge.svg?token=1V0V3TNYS0)](https://codecov.io/gh/rmargar/rmargar.net) ![build](https://github.com/rmargar/website/actions/workflows/deploy.yaml/badge.svg)
 
 # rmargar.net
 
