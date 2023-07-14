@@ -3,7 +3,7 @@ module github.com/rmargar/website
 go 1.19
 
 require (
-	github.com/go-chi/chi/v5 v5.0.8
+	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/httplog v0.3.0
 	github.com/go-chi/jwtauth v4.0.4+incompatible
 	github.com/go-playground/validator/v10 v10.14.1
