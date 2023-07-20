@@ -8,7 +8,7 @@ require (
 	github.com/go-chi/jwtauth v4.0.4+incompatible
 	github.com/go-playground/validator/v10 v10.14.1
 	github.com/golang-migrate/migrate v3.5.4+incompatible
-	github.com/ilyakaznacheev/cleanenv v1.4.2
+	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/kinbiko/jsonassert v1.1.1
 	github.com/leekchan/gtf v0.0.0-20190214083521-5fba33c5b00b
 	github.com/lib/pq v1.10.9
@@ -23,7 +23,7 @@ require (
 
 require (
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
-	github.com/BurntSushi/toml v1.1.0 // indirect
+	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
@@ -46,7 +46,7 @@ require (
 	github.com/jackc/pgx/v5 v5.3.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/joho/godotenv v1.4.0 // indirect
+	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
