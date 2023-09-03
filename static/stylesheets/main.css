@@ -354,6 +354,12 @@ li {
       .experience-item-description li {
         font-size: 1.7rem;  
       }
+      .experience-item-description li::before {
+        content: "▹";
+        color: #7916c9;
+        font-size: 1.7rem;
+        padding-right: 10px;
+      }
       .experience-item-dates {
         font-size: 1.9rem;
       }
