@@ -28,7 +28,7 @@ func (p *PostRepoSql) New(post domain.Post) (*domain.Post, error) {
 
 func (p *PostRepoSql) GetAll() ([]domain.Post, error) {
 	var posts []orm.Post
-	result := p.Db.Find(&posts)
+	result := p.Db.Order("created_at desc").Find(&posts)
 	if result.Error != nil {
 		return orm.NewPosts(posts), result.Error
 	}
