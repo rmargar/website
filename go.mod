@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/go-chi/chi/v5 v5.0.10
-	github.com/go-chi/httplog v0.3.1
+	github.com/go-chi/httplog v0.3.2
 	github.com/go-chi/jwtauth v4.0.4+incompatible
 	github.com/go-playground/validator/v10 v10.16.0
 	github.com/golang-migrate/migrate v3.5.4+incompatible
