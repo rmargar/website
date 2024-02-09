@@ -10,11 +10,12 @@ import (
 )
 
 type Config struct {
-	Port       string `env:"PORT" env-default:"8000"`
-	JwtSecret  string `env:"JWT_SECRET"`
-	SmtpConfig email.SmtpConfig
-	Database   database.DatabaseConfig
-	HTML       html.HTMLConfig
+	Port            string `env:"PORT" env-default:"8000"`
+	JwtSecret       string `env:"JWT_SECRET"`
+	RecaptchaSecret string `env:"RECAPTCHA_SECRET" required`
+	SmtpConfig      email.SmtpConfig
+	Database        database.DatabaseConfig
+	HTML            html.HTMLConfig
 }
 
 func GetConfig() *Config {

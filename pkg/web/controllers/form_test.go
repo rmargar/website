@@ -12,14 +12,14 @@ import (
 func TestParseFormSucces(t *testing.T) {
 	assert := assert.New(t)
 
-	reader := strings.NewReader("email=hello@mail.com&message=test&name=testName")
+	reader := strings.NewReader("email=hello@mail.com&message=test&name=testName&phone=123&g-recaptcha-response=")
 	request := httptest.NewRequest("POST", "http://localhost/", reader)
 	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	writer := httptest.NewRecorder()
 
 	contactDetails, err := ParseForm(request, writer)
 
-	expectedContactDetails := ContactForm{"testName", "test", "hello@mail.com"}
+	expectedContactDetails := ContactForm{"testName", "test", "hello@mail.com", "123", ""}
 	assert.Equal(expectedContactDetails, contactDetails)
 
 	if err != nil {
