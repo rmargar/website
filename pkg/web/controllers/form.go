@@ -12,9 +12,10 @@ import (
 )
 
 type ContactForm struct {
-	Name    string `json:"name"`
-	Message string `json:"message"`
-	Email   string `json:"email"`
+	Name      string `json:"name"`
+	Message   string `json:"message"`
+	Email     string `json:"email"`
+	WithPhone bool   `json:"withPhone"`
 }
 
 func HandlePostForm(cfg *email.SmtpConfig, parseForm func(r *http.Request, w http.ResponseWriter) (ContactForm, error)) http.HandlerFunc {
@@ -22,6 +23,9 @@ func HandlePostForm(cfg *email.SmtpConfig, parseForm func(r *http.Request, w htt
 		contactDetails, err := ParseForm(r, w)
 		if err != nil {
 			http.Error(w, "Invalid form", http.StatusBadRequest)
+		}
+		if contactDetails.WithPhone {
+			http.Error(w, "You are a bot", http.StatusBadRequest)
 		}
 		to := []string{contactDetails.Email, cfg.Email}
 
@@ -45,10 +49,11 @@ func ParseForm(r *http.Request, w http.ResponseWriter) (ContactForm, error) {
 	email, emailExists := r.Form["email"]
 	name, nameExists := r.Form["name"]
 	message, messageExists := r.Form["message"]
+	_, withPhone := r.Form["phone"]
 	if !emailExists || !nameExists || !messageExists {
 		return ContactForm{}, errors.New("Error while parsing the form")
 	}
-	contactDetails := ContactForm{Name: name[0], Email: email[0], Message: message[0]}
+	contactDetails := ContactForm{Name: name[0], Email: email[0], Message: message[0], WithPhone: withPhone}
 
 	defer r.Body.Close()
 	return contactDetails, nil
