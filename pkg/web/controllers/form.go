@@ -25,7 +25,6 @@ type ContactForm struct {
 
 type SiteVerifyResponse struct {
 	Success     bool      `json:"success"`
-	Score       float64   `json:"score"`
 	Action      string    `json:"action"`
 	ChallengeTS time.Time `json:"challenge_ts"`
 	Hostname    string    `json:"hostname"`
@@ -37,9 +36,15 @@ func HandlePostForm(cfg *config.Config, parseForm func(r *http.Request, w http.R
 		contactDetails, err := ParseForm(r, w)
 		if err != nil {
 			http.Error(w, "Invalid form", http.StatusBadRequest)
+			return
 		}
-		if contactDetails.Phone != "" || checkRecaptcha(cfg.RecaptchaSecret, contactDetails.RecaptchaResponse) != nil {
-			http.Error(w, "You are a bot", http.StatusBadRequest)
+
+		err = checkRecaptcha(cfg.RecaptchaSecret, contactDetails.RecaptchaResponse)
+
+		if contactDetails.Phone != "" || err != nil {
+			log.WithError(err).Println("Error while checking recaptcha")
+			http.Error(w, "forbidden", http.StatusForbidden)
+			return
 		}
 		to := []string{contactDetails.Email, cfg.SmtpConfig.Email}
 
@@ -99,15 +104,15 @@ func checkRecaptcha(secret, response string) error {
 		return err
 	}
 
+	fmt.Println(body)
 	// Check recaptcha verification success.
 	if !body.Success {
-		return errors.New("unsuccessful recaptcha verify request")
+		return errors.New("unsuccessful recaptcha verify request: " + body.ErrorCodes[0])
 	}
 
 	// Check response action.
 	if body.Action != "CONTACT" {
 		return errors.New("mismatched recaptcha action")
 	}
-
 	return nil
 }
