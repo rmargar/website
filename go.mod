@@ -17,7 +17,7 @@ require (
 	github.com/stretchr/testify v1.8.4
 	github.com/yuin/goldmark v1.7.0
 	gorm.io/driver/postgres v1.5.6
-	gorm.io/gorm v1.25.7
+	gorm.io/gorm v1.25.8
 	gotest.tools v2.2.0+incompatible
 )
 
