@@ -9,7 +9,7 @@ require (
 	github.com/go-playground/validator/v10 v10.22.0
 	github.com/golang-migrate/migrate v3.5.4+incompatible
 	github.com/ilyakaznacheev/cleanenv v1.5.0
-	github.com/kinbiko/jsonassert v1.1.1
+	github.com/kinbiko/jsonassert v1.2.0
 	github.com/leekchan/gtf v0.0.0-20190214083521-5fba33c5b00b
 	github.com/lib/pq v1.10.9
 	github.com/ory/dockertest v3.3.5+incompatible
